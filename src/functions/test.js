@@ -11,7 +11,12 @@ exports.handler = (event, context, callback) => {
 
   // Return the auth-token
   callback(null, {
-    statusCode: 200,
-    body: 'No worries, all is working fine!'
-  })
+    statusCode: 204,
+    headers: {
+      'content-type': 'application/json',
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET, POST, PUT',
+    },
+    body: {},
+  });
 }
