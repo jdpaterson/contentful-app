@@ -56,16 +56,21 @@ export default class Config extends Component<ConfigProps, ConfigState> {
     };
   };
 
+  onButtonClick = async () => {
+    const fetchResp = await fetch('https://happy-perlman-340ad0.netlify.app/.netlify/functions/test')
+    console.log(fetchResp)
+  }
+
   render() {
-    const authUrl = "https://be.contentful.com/oauth/authorize?response_type=token"
-    const clientId = "gccU7VkNHpIGeSr0OlEFhq52jsGH32FKOEPNolVi9kc"
-    const redirectUri = "https://www.google.com"
-    const scope = "content_management_manage"
+    // const authUrl = "https://be.contentful.com/oauth/authorize?response_type=token"
+    // const clientId = "gccU7VkNHpIGeSr0OlEFhq52jsGH32FKOEPNolVi9kc"
+    // const redirectUri = "https://www.google.com"
+    // const scope = "content_management_manage"
     return (
       <Workbench className={css({ margin: '80px' })}>
-        <a href={`${authUrl}&client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scope}`}>
-          <Button buttonType={"primary"}>Authorize</Button>
-        </a>
+        {/* <a href={`${authUrl}&client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scope}`}> */}
+          <Button onClick={() => this.onButtonClick()}buttonType={"primary"}>Authorize</Button>
+        {/* </a> */}
         <Form>
           <Heading>App Config</Heading>
           <Paragraph>Welcome to your contentful app. This is your config page.</Paragraph>
