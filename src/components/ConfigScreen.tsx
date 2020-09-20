@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { AppExtensionSDK } from 'contentful-ui-extensions-sdk';
-import { Heading, Form, Workbench, Paragraph } from '@contentful/forma-36-react-components';
+import { Button, Heading, Form, Workbench, Paragraph } from '@contentful/forma-36-react-components';
 import { css } from 'emotion';
 
 export interface AppInstallationParameters {}
@@ -25,6 +25,8 @@ export default class Config extends Component<ConfigProps, ConfigState> {
   }
 
   async componentDidMount() {
+    const contentTypes = await this.props.sdk.space.getContentTypes()
+    console.log("CTs:", contentTypes)
     // Get current parameters of the app.
     // If the app is not installed yet, `parameters` will be `null`.
     const parameters: AppInstallationParameters | null = await this.props.sdk.app.getParameters();
@@ -55,8 +57,15 @@ export default class Config extends Component<ConfigProps, ConfigState> {
   };
 
   render() {
+    const authUrl = "https://be.contentful.com/oauth/authorize?response_type=token"
+    const clientId = "gccU7VkNHpIGeSr0OlEFhq52jsGH32FKOEPNolVi9kc"
+    const redirectUri = "https://www.google.com"
+    const scope = "content_management_manage"
     return (
       <Workbench className={css({ margin: '80px' })}>
+        <a href={`${authUrl}&client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scope}`}>
+          <Button buttonType={"primary"}>Authorize</Button>
+        </a>
         <Form>
           <Heading>App Config</Heading>
           <Paragraph>Welcome to your contentful app. This is your config page.</Paragraph>
